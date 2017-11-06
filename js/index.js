@@ -1,10 +1,10 @@
 $(document).ready(function(){
-var animationEffectIn="animated bounceInDown";
-var animationEffectOut="animated fadeOut";
+var animationEffectIn="animated fadeInLeftBig";
+var animationEffectOut="animated bounce";
 var currentPosition=0;
 var playWithAI=false;
 var player1Name="";
-var player2Name="COMPUTER";
+var player2Name="AI";
 
 var navigation_map=[
     "main_heading",
@@ -24,9 +24,10 @@ $(".back").click(function(){
 });
 
 $(".next").click(function(){
+  var textInbutton=$(this).html();
+  getUserChoices(textInbutton);
   if(currentPosition<navigation_map.length-1)
   {
-
     hidePreviousScreen(currentPosition);
     currentPosition++;
     showCurrentScreen(currentPosition);
@@ -40,12 +41,40 @@ $(".menu").click(function(){
 })
 
 function hidePreviousScreen(currentPosition){
-
     var screen=$("#"+navigation_map[currentPosition]);
     removeAnimationFromScreen(screen);
     // screen.addClass(animationEffectOut);
      screen.hide(300);
+   }
 
+
+function getUserChoices(str){
+  var str=str.replace(/<.*>/g,"");
+  str=str.replace(/\W?/g,"");
+  str=str.toUpperCase();
+    switch(str){
+    case "PLAYWITHAI":
+    playWithAI=true;
+    $("#player2").hide();
+    break;
+    case "PLAYWITHHUMAN":
+    playWithAI=true;
+    break;
+    case "SUBMIT":
+    if(!playWithAI){
+      player2Name=$("#player2Name").val();
+      player2Name=(player2Name==="")?"NO NAME":player2Name;
+    }
+    player1Name=$("#player1Name").val();
+    player1Name=(player1Name==="")?"NO NAME":player2Name;
+    $("#player1").html(player1Name);
+    $("#player2").html(player2Name);
+    break;
+    case "X":
+    case "O":
+      console.log(str);
+    break;
+  }
 }
 
 function showCurrentScreen(currentPosition){
