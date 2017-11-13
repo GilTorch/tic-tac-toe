@@ -8,6 +8,11 @@ $(document).ready(function(){
   var player1LetterChoice="X";
   var player2LetterChoice="O";
   var playerLetterChoice=player1LetterChoice;
+  var ticTacToeTable=[
+    [0,0,0],
+    [0,0,0],
+    [0,0,0]
+  ];
 
 //Naviagation dans le menu
   var navigation_map=[
@@ -107,14 +112,11 @@ $(document).ready(function(){
 
 //Creation du Tic-tac-toe en se servant des parametres de l'utilisatuer
 function createGame(){
-  var ticTacToeTable=[
-    0,0,0,
-    0,0,0,
-    0,0,0,
-  ];
 
-  function updateTicTacToeGame(row,col,playerLetterChoice){
 
+  function updateTicTacToeGame(row,col){
+    // alert("Player1 Letter Choice:"+player1LetterChoice);
+    // alert("ligne:"+row+"Colomne"+col);
     if(playerLetterChoice===player1LetterChoice)
     {
       ticTacToeTable[row][col]=1;
@@ -122,24 +124,9 @@ function createGame(){
     else{
       ticTacToeTable[row][col]=2;
     }
-   alert(ticTacToeTable);
   }
 
-  function checkGameState(row,col){
-    alert("OH");
-    updateTicTacToeGame(row,col,playerLetterChoice);
-    var sumDiagonals=0;
-    for(var i=0;i<ticTacToeTable.length;i++)
-    {
-      for(var j=0;j<ticTacToeTable.length;j++)
-      {
-         if(i===j)
-         {
-           sumDiagonals+=ticTacToeTable[i][j]
-         }
-      }
-    }
-  }
+
 
   var clickCoordinates="";
   var row="";
@@ -148,14 +135,29 @@ function createGame(){
     if($(this).html()==="")
     {
       $(this).html(playerLetterChoice);
-      playerLetterChoice=(playerLetterChoice===player1LetterChoice)?player2LetterChoice:player1LetterChoice;
       clickCoordinates=$(this).attr('id').replace(/row-(\d)-col-(\d)/,"$1$2");// tranform id "row-1-col-2" to "12" for example
       row=clickCoordinates[0];
-      col=clickCoordiantes[1];
+      col=clickCoordinates[1];
       checkGameState(row,col);
+      updateTicTacToeGame(row,col);
+      playerLetterChoice=(playerLetterChoice===player1LetterChoice)?player2LetterChoice:player1LetterChoice;
     }
   })
 
+}
+
+function checkGameState(row,col){;
+  // var sumDiagonals=0;
+  // for(var i=0;i<ticTacToeTable.length;i++)
+  // {
+  //   for(var j=0;j<ticTacToeTable.length;j++)
+  //   {
+  //      if(i===j)
+  //      {
+  //        sumDiagonals+=ticTacToeTable[i][j];
+  //      }
+  //   }
+  // }
 }
 createGame();
 })
