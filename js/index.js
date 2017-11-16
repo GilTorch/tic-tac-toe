@@ -146,18 +146,153 @@ function createGame(){
 
 }
 
-function checkGameState(row,col){;
-  // var sumDiagonals=0;
-  // for(var i=0;i<ticTacToeTable.length;i++)
-  // {
-  //   for(var j=0;j<ticTacToeTable.length;j++)
-  //   {
-  //      if(i===j)
-  //      {
-  //        sumDiagonals+=ticTacToeTable[i][j];
-  //      }
-  //   }
-  // }
+var leftDiagonal="";
+var rightDiagonal="";
+var leftVertical="";
+var centerVertical="";
+var rightVertical="";
+var topHorizontal="";
+var bottomHorizontal="";
+var middleHorizontal="";
+
+var player1WinningCoefficientTracker="1";
+var player2WinningCoefficientTracker="2";
+
+function checkGameState(row,col){
+  //Check Diagonals
+  if(row===col)
+  {
+    if(playerLetterChoice===player1LetterChoice)
+    {
+      leftDiagonal+="1";
+      if(row==1 && col===1)// row 1 column 1 is common to both diagonals
+        rightDiagonal+=player1WinningCoefficientTracker;
+    }
+    else{
+      leftDiagonal+="2";
+      if(row==1 && col===1)
+        rightDiagonal+=player2WinningCoefficientTracker;
+    }
+  }
+  //Check Right Diagonal cas particulier
+  if((row===0 && col===2)||(row===2 && col===0))
+  {
+    if(playerLetterChoice===player1LetterChoice)
+    {
+      rightDiagonal+=player1WinningCoefficientTracker;
+    }
+    else{
+      rightDiagonal+=player2WinningCoefficientTracker;
+    }
+  }
+ //Check Verticals
+   switch(col)
+   {
+     case "0":
+     switch(row){
+       case "0":
+       case "1":
+       case "2":
+         leftVertical+=(playerLetterChoice===player1LetterChoice)?player2WinningCoefficientTracker:player1WinningCoefficientTracker;
+       break;
+     }
+     break;
+     case "1":
+       switch(row){
+         case "0":
+         case "1":
+         case "2":
+           centerVertical+=(playerLetterChoice===player1LetterChoice)?player1WinningCoefficientTracker:player2WinningCoefficientTracker;
+         break;
+       }
+       break;
+     case "2":
+       switch(row){
+         case "0":
+         case "1":
+         case "2":
+           rightVertical+=(playerLetterChoice===player1LetterChoice)?player1WinningCoefficientTracker:player2WinningCoefficientTracker;
+         break;
+       }
+       break;
+     break;
+   }
+  // console.log("Center Vertical:"+centerVertical);
+  //check horizontals
+  switch(row)
+  {
+    case "0":
+       switch(col)
+       {
+         case "0":
+         case "1":
+         case "2":
+           topHorizontal+=(playerLetterChoice===player1LetterChoice)?player1WinningCoefficientTracker:player2WinningCoefficientTracker;
+         break;
+       }
+      break;
+    case "1":
+      switch(col)
+      {
+        case "0":
+        case "1":
+        case "2":
+         middleHorizontal+=(playerLetterChoice===player1LetterChoice)?player1WinningCoefficientTracker:player2WinningCoefficientTracker;
+        break;
+      }
+      break;
+    case "2":
+    switch(col)
+      {
+        case "0":
+        case "1":
+        case "2":
+          bottomHorizontal+=(playerLetterChoice===player1LetterChoice)?1:2;
+        break;
+      }
+      break;
+  }
+  console.log("Top Horizontal:"+topHorizontal);
+  console.log("Center Horizontal:"+middleHorizontal);
+  console.log("Bottom Horizontal:"+bottomHorizontal);
+  win("111");
+  win("222");
 }
+
+function win(playerWinningCoefficient)
+{
+  if(topHorizontal===playerWinningCoefficient || middleHorizontal===playerWinningCoefficient || bottomHorizontal===playerWinningCoefficient){
+    if(playerWinningCoefficient==="111")
+    {
+      alert("Player One Won!");
+    }
+    else if(playerWinningCoefficient==="222"){
+      alert("Player Two Won!");
+    }
+  }
+
+  if(leftVertical===playerWinningCoefficient || rightVertical===playerWinningCoefficient || centerVertical===playerWinningCoefficient)
+  {
+    if(playerWinningCoefficient==="111")
+    {
+      alert("Player One Won!");
+    }
+    else if(playerWinningCoefficient==="222"){
+      alert("Player Two Won!");
+    }
+  }
+
+  if(rightDiagonal==playerWinningCoefficient || leftDiagonal===playerWinningCoefficient)
+  {
+    if(playerWinningCoefficient==="111")
+    {
+      alert("Player One Won!");
+    }
+    else if(playerWinningCoefficient==="222"){
+      alert("Player Two Won!");
+    }
+  }
+}
+
 createGame();
 })
