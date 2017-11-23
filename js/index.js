@@ -33,6 +33,7 @@ $(document).ready(function(){
     "tic-tac-toe-container",
   ];
 
+
   function showCurrentScreen(currentPosition){
     var screen=$("#"+navigation_map[currentPosition]);
     removeAnimationFromScreen(screen);
@@ -44,9 +45,6 @@ $(document).ready(function(){
     {
       screen.removeClass(animationEffectIn);
     }
-    else if(screen.hasClass(animationEffectOut)){
-      screen.removeClass(animationEffectOut);
-    }
   }
 
   $("#"+navigation_map[0]).show();
@@ -54,11 +52,17 @@ $(document).ready(function(){
   $(".back").click(function(){
     if(currentPosition>0)
     {
+      if(currentPosition===navigation_map.length-1)
+        {
+          gameRestart();
+        }
       console.log("Current Position:"+currentPosition);
       hidePreviousScreen(currentPosition);
       currentPosition--;
       showCurrentScreen(currentPosition);
     }
+
+
   });
 
   $(".next").click(function(){
@@ -123,17 +127,7 @@ $(document).ready(function(){
 
 //Creation du Tic-tac-toe en se servant des parametres de l'utilisatuer
 function createGame(){
-  function updateTicTacToeGame(row,col){
-    // alert("Player1 Letter Choice:"+player1LetterChoice);
-    // alert("ligne:"+row+"Colomne"+col);
-    if(playerLetterChoice===player1LetterChoice)
-    {
-      ticTacToeTable[row][col]=1;
-    }
-    else{
-      ticTacToeTable[row][col]=2;
-    }
-  }
+
   var clickCoordinates="";
   var row="";
   var col="";
@@ -153,6 +147,18 @@ function createGame(){
 
 }
 
+function updateTicTacToeGame(row,col){
+  // alert("Player1 Letter Choice:"+player1LetterChoice);
+  // alert("ligne:"+row+"Colomne"+col);
+  if(playerLetterChoice===player1LetterChoice)
+  {
+    ticTacToeTable[row][col]=player1WinningCoefficientTracker;
+  }
+  else{
+    ticTacToeTable[row][col]=player2WinningCoefficientTracker;
+  }
+}
+
 function checkGameState(row,col){
   //Check Diagonals
   if(row===col)
@@ -160,20 +166,17 @@ function checkGameState(row,col){
     if(playerLetterChoice===player1LetterChoice)
     {
       leftDiagonal+=player1WinningCoefficientTracker;
-      if(row==1 && col===1)// row 1 column 1 is common to both diagonals
-        rightDiagonal+=player1WinningCoefficientTracker;
     }
     else{
       leftDiagonal+=player2WinningCoefficientTracker;
-      if(row==1 && col===1)
-        rightDiagonal+=player2WinningCoefficientTracker;
     }
   }
   //Check Right Diagonal cas particulier
-  if((row===0 && col===2)||(row===2 && col===0))
+  if((row==0 && col==2) || (row==1 && col==1) || (row==2 && col==0))
   {
     if(playerLetterChoice===player1LetterChoice)
     {
+      alert(player1WinningCoefficientTracker);
       rightDiagonal+=player1WinningCoefficientTracker;
     }
     else{
@@ -207,9 +210,9 @@ function checkGameState(row,col){
           bottomHorizontal+=(playerLetterChoice===player1LetterChoice)?1:2;
         break;
   }
-  console.log("Top Horizontal:"+topHorizontal);
-  console.log("Center Horizontal:"+middleHorizontal);
-  console.log("Bottom Horizontal:"+bottomHorizontal);
+  // console.log("Top Horizontal:"+topHorizontal);
+  // console.log("Center Horizontal:"+middleHorizontal);
+  // console.log("Bottom Horizontal:"+bottomHorizontal);
 
  // $(".game-result-box td").html(gameResult());
 var gameStates=gameState();
@@ -221,16 +224,13 @@ if(gameStates!==undefined)
   },2000);
 }
 
+console.log("RIGHT DIAGONAL:"+rightDiagonal);
+
 }
 
 
 function gameState()
 {
-  if(caseNonVide===9)
-  {
-    return "DRAW!!";
-  }
-
   var player1WinningCoefficient="111";
   var player2WinningCoefficient="222";
   //**Horizontal****
@@ -264,14 +264,19 @@ function gameState()
   {
     return player2Name+" Won!";
   }
+
+  if(caseNonVide===9)
+  {
+    return "DRAW!!";
+  }
+
+
 }
 
 function gameRestart(){
   playWithAI=false;
   player1Name=$("#player1Name").val();
-  player2Name=(player2Name===playWithAI)?"AI":$("#player2Name").val();
-  player1LetterChoice="X";
-  player2LetterChoice="O";
+  player2Name=(playWithAI)?"AI":$("#player2Name").val();
   playerLetterChoice=player1LetterChoice;
   caseNonVide=0;
   leftDiagonal="";
