@@ -1,6 +1,5 @@
 $(document).ready(function(){
   var animationEffectIn="animated fadeInLeftBig";
-  var animationEffectOut="animated bounce";
   var currentPosition=0;
   var playWithAI=false;
   var player1Name="";
@@ -55,6 +54,7 @@ $(document).ready(function(){
   $(".back").click(function(){
     if(currentPosition>0)
     {
+      console.log("Current Position:"+currentPosition);
       hidePreviousScreen(currentPosition);
       currentPosition--;
       showCurrentScreen(currentPosition);
@@ -62,6 +62,7 @@ $(document).ready(function(){
   });
 
   $(".next").click(function(){
+    console.log("Current Position:"+currentPosition);
     var textInbutton=$(this).html();
     getUserChoices(textInbutton);
     if(currentPosition<navigation_map.length-1)
@@ -79,10 +80,9 @@ $(document).ready(function(){
   })
 
   function hidePreviousScreen(currentPosition){
-    var screen=$("#"+navigation_map[currentPosition]);
-    removeAnimationFromScreen(screen);
-    // screen.addClass(animationEffectOut);
-    screen.hide(300);
+    var currentScreen=$("#"+navigation_map[currentPosition]);
+    removeAnimationFromScreen(currentScreen);
+    currentScreen.hide(300);
   }
 
 //Recuperation des donnees saisies par l'utilisateur
@@ -155,7 +155,6 @@ function createGame(){
 
 function checkGameState(row,col){
   //Check Diagonals
-
   if(row===col)
   {
     if(playerLetterChoice===player1LetterChoice)
@@ -213,17 +212,19 @@ function checkGameState(row,col){
   console.log("Bottom Horizontal:"+bottomHorizontal);
 
  // $(".game-result-box td").html(gameResult());
-var gameResults=gameResult();
-if(gameResults!==undefined)
+var gameStates=gameState();
+if(gameStates!==undefined)
 {
-  $(".game-results-box p").html(gameResults);
-  gameRestart();
+  $(".game-results-box p").html(gameStates);
+  setTimeout(function(){
+      gameRestart();
+  },2000);
 }
 
 }
 
 
-function gameResult()
+function gameState()
 {
   if(caseNonVide===9)
   {
@@ -266,10 +267,9 @@ function gameResult()
 }
 
 function gameRestart(){
-  currentPosition=0;
   playWithAI=false;
-  player1Name="";
-  player2Name="AI";
+  player1Name=$("#player1Name").val();
+  player2Name=(player2Name===playWithAI)?"AI":$("#player2Name").val();
   player1LetterChoice="X";
   player2LetterChoice="O";
   playerLetterChoice=player1LetterChoice;
@@ -290,14 +290,6 @@ function gameRestart(){
     [0,0,0]
   ];
   $("#tic-tac-toe-ui td").html("");
-
-  // for(var i=0;i<navigation_map.length;i++)
-  // {
-  //   $("#"+navigation_map[i]).hide();
-  // }
-  //
-  // $("#"+navigation_map[0]).show();
-
   $(".game-results-box p").html("");
 }
 
