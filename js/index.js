@@ -98,10 +98,12 @@ $(document).ready(function(){
       case "PLAYWITHAI":
       playWithAI=true;
       $(".player2-input-box").hide();
+      $(".ai-play-first").show();
       break;
       case "PLAYWITHHUMAN":
       playWithAI=false;
       $(".player2-input-box").show();
+      $(".ai-play-first").hide();
       break;
       case "SUBMIT":
       if(!playWithAI){
@@ -121,31 +123,83 @@ $(document).ready(function(){
       player2LetterChoice=(player1LetterChoice==="X")?"O":"X";
       playerLetterChoice=player1LetterChoice;
       console.log("player1LetterChoice: "+player1LetterChoice+"\n"+"player2LetterChoice: "+player2LetterChoice);
+      createGame();
     break;
   }
 }
 
 //Creation du Tic-tac-toe en se servant des parametres de l'utilisatuer
 function createGame(){
+  if(playWithAI)
+  {
+    alert("PLAY WITH AI");
+    var aiPlaysFirst=$(".ai-play-first input").prop("checked");
+    if(aiPlaysFirst)
+    {
+      aiPlay();
+    }
+    else{
+      humanPlay();
+    }
+  }
+  else{
+    humanPlay();
+  }
+}
 
+function aiPlay(){
+  var casesVides=[];
+  /**Choisir une case vide aleatoire**/
+  for(var i=0;i<ticTacToeTable.length;i++)
+  {
+     for(var j=0;j<ticTacToeTable.length;j++)
+     {
+       if(ticTacToeTable[i][j]==0)
+       {
+         var emptyArray=[];
+         emptyArray.push(i)
+         emptyArray.push(j);
+         casesVides.push(emptyArray);
+       }
+     }
+  }
+
+  var random=Math.floor(Math.random()*casesVides.length);
+  var choice=casesVides[random];
+  console.log("AI CHOICE:"+choice);
+  var choiceRow=choice[0];
+  var choiceCol=choice[1];
+  checkGameState(choiceRow,choiceCol);
+  updateTicTacToeGame(choiceRow,choiceCol);
+  $("#"+"row-"+choiceRow+"-col-"+choiceCol).html(playerLetterChoice);
+  playerLetterChoice=(playerLetterChoice===player1LetterChoice)?player2LetterChoice:player1LetterChoice;
+  humanPlay();
+}
+
+function humanPlay(){
   var clickCoordinates="";
   var row="";
   var col="";
   $("#tic-tac-toe-ui td").click(function(){
     if($(this).html()==="")
     {
-      $(this).html(playerLetterChoice);
-      clickCoordinates=$(this).attr('id').replace(/row-(\d)-col-(\d)/,"$1$2");// tranform id "row-1-col-2" to "12" for example
-      row=clickCoordinates[0];
-      col=clickCoordinates[1];
-      caseNonVide++;
-      checkGameState(row,col);
-      updateTicTacToeGame(row,col);
-      playerLetterChoice=(playerLetterChoice===player1LetterChoice)?player2LetterChoice:player1LetterChoice;
-    }
-  })
-
-}
+        $(this).html(playerLetterChoice);
+        clickCoordinates=$(this).attr('id').replace(/row-(\d)-col-(\d)/,"$1$2");// tranform id "row-1-col-2" to "12" for example
+        row=clickCoordinates[0];
+        col=clickCoordinates[1];
+        caseNonVide++;
+        checkGameState(row,col);
+        updateTicTacToeGame(row,col);
+        playerLetterChoice=(playerLetterChoice===player1LetterChoice)?player2LetterChoice:player1LetterChoice;
+        if(playWithAI)
+        {
+          setTimeout(function(){
+            aiPlay();
+          },1000);
+        }
+      }
+    })
+  }
 
 function updateTicTacToeGame(row,col){
   // alert("Player1 Letter Choice:"+player1LetterChoice);
@@ -176,7 +230,6 @@ function checkGameState(row,col){
   {
     if(playerLetterChoice===player1LetterChoice)
     {
-      alert(player1WinningCoefficientTracker);
       rightDiagonal+=player1WinningCoefficientTracker;
     }
     else{
@@ -274,7 +327,6 @@ function gameState()
 }
 
 function gameRestart(){
-  playWithAI=false;
   player1Name=$("#player1Name").val();
   player2Name=(playWithAI)?"AI":$("#player2Name").val();
   playerLetterChoice=player1LetterChoice;
@@ -289,6 +341,7 @@ function gameRestart(){
   middleHorizontal="";
   player1WinningCoefficientTracker="1";
   player2WinningCoefficientTracker="2";
+  var aiPlaysFirst=$(".ai-play-first input").prop("checked");
   ticTacToeTable=[
     [0,0,0],
     [0,0,0],
@@ -297,7 +350,4 @@ function gameRestart(){
   $("#tic-tac-toe-ui td").html("");
   $(".game-results-box p").html("");
 }
-
-
-createGame();
 })
