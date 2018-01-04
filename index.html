@@ -7,25 +7,26 @@
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'/>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel='stylesheet' href='css/style.css'/>
+<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Lobster|Lobster+Two" rel="stylesheet">
 </head>
 <div id="app-container" class="text-center container">
-    <div class="dialog-box" id="main_heading">
-      <h1>Tic Tac Toe</h1>
-      <div class="col-md-12"><p><h2><code><></code>with <i class="fa fa-heart"></i> by <a href="https://github.com/GilTorch" target="_blank">Gilbert</a></p></h2></div>
-      <div>
-        <button class="btn btn-primary next" id="start-the-game">Start the game :D</button>
-      </div>
+  <div class="dialog-box" id="main_heading">
+    <h1>Tic Tac Toe</h1>
+    <div class="col-md-12"><p><h2><code><></code>with <i class="fa fa-heart"></i> by <a href="https://github.com/GilTorch" target="_blank">Gilbert</a></p></h2></div>
+    <div>
+      <button class="btn btn-primary next" id="start-the-game">Start the game :D</button>
     </div>
-    <div id="choose-player" class="dialog-box">
-      <div class="row">
-        <h3>Choose Player</h3>
-        <span class="col-md-12 next">Play with AI <i class="fa fa-desktop"></i></span>
-        <span class="col-md-12 next">Play with Human <i class="fa fa-user"></i></span>
+  </div>
+  <div id="choose-player" class="dialog-box">
+    <div class="row">
+      <h3>Choose Player</h3>
+      <span class="col-md-12 next">Play with AI <i class="fa fa-desktop"></i></span>
+      <span class="col-md-12 next">Play with Human <i class="fa fa-user"></i></span>
+    </div>
+    <body>
+      <div class="button-group col-md-6 col-md-offset-3">
+        <button class="btn btn-success back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
       </div>
-      <body>
-        <div class="button-group col-md-6 col-md-offset-3">
-          <button class="btn btn-success back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
-        </div>
     </div>
     <div id="player-names" class="dialog-box">
       <div class="row">
@@ -43,73 +44,73 @@
           <div class="button-group col-md-6 col-md-offset-3">
             <button class="btn btn-success back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
             <button class="btn btn-primary menu"><i class="fa fa-bars" aria-hidden="true"></i>
-Menu</button>
-            <button class="btn btn-danger next"><i class="fa fa-paper-plane"></i> Submit</button>
+              Menu</button>
+              <button class="btn btn-danger next"><i class="fa fa-paper-plane"></i> Submit</button>
+            </div>
           </div>
-      </div>
-    </div>
-    <div id="letter-choice-box" class="dialog-box">
-      <div class="row">
-        <h3>Choose a letter you wish to play with</h3>
-        <span class="letters o next">O</span>
-        <span id="or"> or </span>
-        <span class="letters x next">X</span>
-      </div>
-      <body>
-        <div class="button-group col-md-6 col-md-offset-3">
-          <button class="btn btn-success back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
-          <button class="btn btn-primary menu"><i class="fa fa-bars" aria-hidden="true"></i>
-Menu</button>
         </div>
-    </div>
-  <div class="container-fluid" id="tic-tac-toe-container">
-    <div class="jumbotron text-center" id="players-box">
-      <p><span id="player1">Player 1</span> vs <span id="player2">Player2</span></p>
-      <div class="game-results-box">
-        <p>
-        </p>
-      </div>
-      <div class="show-player-turn">
-        <p>
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <table id="tic-tac-toe-ui">
-        <tr>
-          <td id="row-0-col-0"></td>
-          <td id="row-0-col-1"></td>
-          <td id="row-0-col-2"></td>
-        </tr>
-        <tr>
-          <td id="row-1-col-0"></td>
-          <td id="row-1-col-1"></td>
-          <td id="row-1-col-2"></td>
-        </tr>
-        <tr>
-          <td id="row-2-col-0"></td>
-          <td id="row-2-col-1"></td>
-          <td id="row-2-col-2"></td>
-        </tr>
-      </table>
-    </div>
-    <body>
-    <div class="button-group col-md-6 col-md-offset-3">
-        <button class="btn btn-success back"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back</button>
-        <button class="btn btn-primary menu"><i class="fa fa-bars" aria-hidden="true"></i>
-Menu</button>
-    </div>
-  </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="js/vue.js"></script>
-<script src="js/model.js"></script>
-<script src="js/controller.js"></script>
-<script src="js/main.js"></script>
-<script
-			  src="https://code.jquery.com/jquery-3.2.1.min.js"
-			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-			  crossorigin="anonymous"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
-</body>
-</html>
+        <div id="letter-choice-box" class="dialog-box">
+          <div class="row">
+            <h3>Choose a letter you wish to play with</h3>
+            <span class="letters o next">O</span>
+            <span id="or"> or </span>
+            <span class="letters x next">X</span>
+          </div>
+          <body>
+            <div class="button-group col-md-6 col-md-offset-3">
+              <button class="btn btn-success back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+              <button class="btn btn-primary menu"><i class="fa fa-bars" aria-hidden="true"></i>
+                Menu</button>
+              </div>
+            </div>
+            <div class="container-fluid" id="tic-tac-toe-container">
+              <div class="jumbotron text-center" id="players-box">
+                <p><span id="player1" class="playersName">Player 1</span><span class="versus"> vs </span><span id="player2" class="playersName">Player2</span></p>
+                <div class="game-results-box">
+                  <p>
+                  </p>
+                </div>
+                <div class="show-player-turn">
+                  <p>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <table id="tic-tac-toe-ui">
+                  <tr>
+                    <td id="row-0-col-0"></td>
+                    <td id="row-0-col-1"></td>
+                    <td id="row-0-col-2"></td>
+                  </tr>
+                  <tr>
+                    <td id="row-1-col-0"></td>
+                    <td id="row-1-col-1"></td>
+                    <td id="row-1-col-2"></td>
+                  </tr>
+                  <tr>
+                    <td id="row-2-col-0"></td>
+                    <td id="row-2-col-1"></td>
+                    <td id="row-2-col-2"></td>
+                  </tr>
+                </table>
+              </div>
+              <body>
+                <div class="button-group col-md-6 col-md-offset-3">
+                  <button class="btn btn-success back"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back</button>
+                  <button class="btn btn-primary menu"><i class="fa fa-bars" aria-hidden="true"></i>
+                    Menu</button>
+                  </div>
+                </div>
+              </div>
+              <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+              <script src="js/vue.js"></script>
+              <script src="js/model.js"></script>
+              <script src="js/controller.js"></script>
+              <script src="js/main.js"></script>
+              <script
+              src="https://code.jquery.com/jquery-3.2.1.min.js"
+              integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+              crossorigin="anonymous"></script>
+              <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+            </body>
+            </html>

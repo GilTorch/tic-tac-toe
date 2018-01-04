@@ -84,11 +84,7 @@ var Model=function(vue){
   }
 
   function aiPlay() {
-    if(gameState()!==undefined)
-    {
-      return 0;
-    }
-    $("#tic-tac-toe-ui td").off('click');//Human Player Can't click on the board while AI is playing
+    // $("#tic-tac-toe-ui td").off('click');//Human Player Can't click on the board while AI is playing
     var casesVides = [];
     var random = 0;    /**Choisir une case vide aleatoire**/
     for (var i = 0; i < ticTacToeTable.length; i++) {
@@ -105,15 +101,29 @@ var Model=function(vue){
 
     that.updateTicTacToeGame(choiceRow, choiceCol);
     // alert(caseNonVide);
-    that.changePlayer();
+  }
+
+  this.humanPlay=function(){
+    clickCoordinates = $(this).attr('id').replace(/row-(\d)-col-(\d)/, "$1$2"); // tranform id "row-1-col-2" to "12" for example
+    row = clickCoordinates[0];
+    col = clickCoordinates[1];
+    that.updateTicTacToeGame(row,col);
+    if(that.playWithAI)
+    {
+      setTimeout(function(){
+        aiPlay();
+      },1000);
+    }
   }
 
   this.updateTicTacToeGame=function(row,col){
     var whichPlayerCoefficient = (this.playerLetterChoice === player2LetterChoice) ? player2WinningCoefficientTracker : player1WinningCoefficientTracker;
     ticTacToeTable[row][col] = whichPlayerCoefficient;
+    vue.showLetterOnBoard(row,col,that.playerLetterChoice);
     caseNonVide++;
     checkGameState();
     that.changePlayer();
+    vue.showPlayerTurn(that.playerName);
   }
 
   function checkGameState(){

@@ -19,8 +19,8 @@ var Vue=function(){
     currentScreen.hide(500);
   }
 
-  this.showLetterOnBoard=function(ticTacToeBoard,letter){
-     console.log("letter: "+letter);
+  this.showLetterOnBoard=function(row,col,letter){
+    var ticTacToeBoard=$("#"+"row-"+row+"-col-"+col);
      if(ticTacToeBoard.html()==="")
        ticTacToeBoard.html(letter);
   }

@@ -28,15 +28,8 @@ backButton.click(function(){
   }});
 
 
-  tictactoeBoard.click(function(){
-    console.log("clicked!");
-    clickCoordinates = $(this).attr('id').replace(/row-(\d)-col-(\d)/, "$1$2"); // tranform id "row-1-col-2" to "12" for example
-    row = clickCoordinates[0];
-    col = clickCoordinates[1];
-    vue.showLetterOnBoard($(this),model.playerLetterChoice);
-    model.updateTicTacToeGame(row,col);
-    vue.showPlayerTurn(model.playerName);
-  });
+  tictactoeBoard.click(model.humanPlay);
+
 
 menuButton.click(function(){
   vue.hidePreviousScreen(vue.currentScreenPosition);
