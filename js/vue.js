@@ -45,4 +45,25 @@ var Vue=function(){
     $(".game-results-box p").html("");
   }
   this.showCurrentScreen(this.currentScreenPosition);
+
+  this.showAiPlayFirstBox=function(){
+    $(".ai-play-first").show();
+  }
+
+  this.hideAiPlayFirstBox=function(){
+    $(".ai-play-first").hide();
+  }
+
+  this.displayPlayerNames=function(name1,name2){
+    $("#player1").html(name1);
+    $("#player2").html(name2);
+  }
+
+  this.showPlayer2InputField=function(){
+    $(".player2-input-box").show();
+  }
+
+  this.hidePlayer2InputField=function(){
+    $(".player2-input-box").hide();
+  }
 }

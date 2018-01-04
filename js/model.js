@@ -5,7 +5,7 @@ var Model=function(vue){
   var player2WinningCoefficientTracker="2";
   var player1WinningCoefficient="111";
   var player2WinningCoefficient="222";
-  var playWithAI=false;
+  this.playWithAI=false;
   var player1Name="NO NAME";
   var player2Name="AI";
   this.playerName=player1Name;
@@ -36,17 +36,17 @@ var Model=function(vue){
     str=str.toUpperCase();
     switch(str){
       case "PLAYWITHAI":
-      playWithAI=true;
-      $(".player2-input-box").hide();
-      $(".ai-play-first").show();
+      that.playWithAI=true;
+      vue.hidePlayer2InputField();
+      vue.showAiPlayFirstBox();
       break;
       case "PLAYWITHHUMAN":
-      playWithAI=false;
-      $(".player2-input-box").show();
-      $(".ai-play-first").hide();
+      that.playWithAI=false;
+      vue.showPlayer2InputField();
+      vue.hideAiPlayFirstBox();
       break;
       case "SUBMIT":
-      if(!playWithAI){
+      if(!that.playWithAI){
         player2Name=$("#player2Name").val();
         player2Name=(player2Name==="")?"NO NAME":player2Name;
       }else{
@@ -54,14 +54,13 @@ var Model=function(vue){
       }
       player1Name=$("#player1Name").val();
       player1Name=(player1Name==="")?"NO NAME":player1Name;
-      $("#player1").html(player1Name);
-      $("#player2").html(player2Name);
+      vue.displayPlayerNames(player1Name,player2Name);
       break;
       case "X":
       case "O":
       player1LetterChoice=str;
       player2LetterChoice=(player1LetterChoice==="X")?"O":"X";
-      this.player1Name=player1Name;
+      this.playerName=player1Name;
       this.playerLetterChoice=player1LetterChoice;
       // console.log("player1LetterChoice: "+player1LetterChoice+"\n"+"player2LetterChoice: "+player2LetterChoice);
       break;
@@ -75,15 +74,15 @@ var Model=function(vue){
 
   this.createTicTacToeGame=function(){
     initValues();
-    if (playWithAI) {
+    if (that.playWithAI) {
       aiPlaysFirst = $(".ai-play-first input").prop("checked");
       if (aiPlaysFirst) {
-        aiPlay();
+        that.aiPlay();
       }
     }
   }
 
-  function aiPlay() {
+this.aiPlay=function() {
     // $("#tic-tac-toe-ui td").off('click');//Human Player Can't click on the board while AI is playing
     var casesVides = [];
     var random = 0;    /**Choisir une case vide aleatoire**/
@@ -111,7 +110,7 @@ var Model=function(vue){
     if(that.playWithAI)
     {
       setTimeout(function(){
-        aiPlay();
+      that.aiPlay();
       },1000);
     }
   }
@@ -214,90 +213,6 @@ var Model=function(vue){
     }
   }
 
-  //   function checkGameState(row, col,playerCoefficient) {
-  //     //****DIAGONALS
-  //     //Update Left Diagonal
-  //     if (row === col) {
-  //       leftDiagonal += playerCoefficient;
-  //       console.log(playerCoefficient);
-  //     }
-  //     //Update Right Diagonal
-  //     if ((row == 0 && col == 2) || (row == 1 && col == 1) || (row == 2 && col == 0)) {
-  //       rightDiagonal += playerCoefficient;
-  //     }
-  //     //Update Verticals
-  //     switch (col) {
-  //       case 0:
-  //       leftVertical += playerCoefficient;
-  //       break;
-  //       case 1:
-  //       centerVertical += playerCoefficient;
-  //       break;
-  //       case 2:
-  //       rightVertical += playerCoefficient;
-  //       break;
-  //     }
-  //     //Update horizontals
-  //     switch (row) {
-  //       case 0:
-  //       topHorizontal += playerCoefficient;
-  //       break;
-  //       case 1:
-  //       centerHorizontal += playerCoefficient;
-  //       break;
-  //       case 2:
-  //       bottomHorizontal += playerCoefficient;
-  //       break;
-  //     }
-  //
-  //     // $(".game-result-box td").html(gameResult());
-  //
-  //     var gameStates = gameState();
-  //     if (gameStates !== undefined) {
-  //       $(".game-results-box p").html(gameStates);
-  //       setTimeout(function() {
-  //         initValues();
-  //         that.createTicTacToeGame();
-  //       }, 2000);
-  //     }
-  //
-  //
-  //         // console.log("******DIAGONAL************");
-  //         // console.log("Left Diagonal:"+leftDiagonal);
-  //         // console.log("Right Diagonal"+rightDiagonal);
-  //         // console.log("*******VERTICAL*************")
-  //         // console.log("Left Vertical:"+leftVertical);
-  //         // console.log("Center Vertical:"+centerVertical);
-  //         // console.log("Right Vertical"+rightVertical);
-  //         // console.log("******HORIZONTAL**************")
-  //         // console.log("Top Horizontal:"+topHorizontal);
-  //         // console.log("Middle Horizontal:"+centerHorizontal);
-  //         // console.log("Bottom Horizontal:"+bottomHorizontal);
-  //   }
-  //
-  //
-  //   function gameState() {
-  //     var directions=[topHorizontal,centerHorizontal,bottomHorizontal,leftVertical,centerVertical,rightVertical,leftDiagonal,rightDiagonal];
-  //     for (var i=0;i<directions.length;i++)
-  //     {
-  //       if(directions[i]===player1WinningCoefficient)
-  //       {
-  //         return player1Name+ " Won!";
-  //       }
-  //
-  //       if(directions[i]===player2WinningCoefficient)
-  //       {
-  //         return player2Name+ " Won!";
-  //       }
-  //
-  //     }
-  //     console.log("CASES NON VIDES: "+caseNonVide);
-  //
-  //     if (caseNonVide === 9) {
-  //       return "DRAW!!";
-  //     }
-  //   }
-  // }
 
   function initValues(){
     caseNonVide=0;
