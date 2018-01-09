@@ -13,21 +13,14 @@ var Model=function(vue){
   var player2LetterChoice="O";
   this.playerLetterChoice=player1LetterChoice;
   var aiPlaysFirst=true;
-  var ticTacToeTable=[
+  that.humanHasPlayed=true;
+  that.ticTacToeTable=[
     [0,0,0],
     [0,0,0],
     [0,0,0],
   ]
 
   caseNonVide = 0;
-  var leftDiagonal = "";
-  var rightDiagonal = "";
-  var leftVertical = "";
-  var centerVertical = "";
-  var rightVertical = "";
-  var topHorizontal = "";
-  var bottomHorizontal = "";
-  var centerHorizontal = "";
 
 
   this.getUserChoices=function(str){
@@ -83,12 +76,12 @@ var Model=function(vue){
   }
 
 this.aiPlay=function() {
-    // $("#tic-tac-toe-ui td").off('click');//Human Player Can't click on the board while AI is playing
+    that.humanHasPlayed=false;
     var casesVides = [];
     var random = 0;    /**Choisir une case vide aleatoire**/
-    for (var i = 0; i < ticTacToeTable.length; i++) {
-      for (var j = 0; j < ticTacToeTable.length; j++) {
-        if (ticTacToeTable[i][j] == 0) {
+    for (var i = 0; i < that.ticTacToeTable.length; i++) {
+      for (var j = 0; j < that.ticTacToeTable.length; j++) {
+        if (that.ticTacToeTable[i][j] == 0) {
           casesVides.push([i,j]);
         }
       }
@@ -102,13 +95,11 @@ this.aiPlay=function() {
     // alert(caseNonVide);
   }
 
-  this.humanPlay=function(){
-    clickCoordinates = $(this).attr('id').replace(/row-(\d)-col-(\d)/, "$1$2"); // tranform id "row-1-col-2" to "12" for example
-    row = clickCoordinates[0];
-    col = clickCoordinates[1];
+  this.humanPlay=function(row,col){
     that.updateTicTacToeGame(row,col);
     if(that.playWithAI)
     {
+      that.humanHasPlayed=true;
       setTimeout(function(){
       that.aiPlay();
       },1000);
@@ -117,7 +108,7 @@ this.aiPlay=function() {
 
   this.updateTicTacToeGame=function(row,col){
     var whichPlayerCoefficient = (this.playerLetterChoice === player2LetterChoice) ? player2WinningCoefficientTracker : player1WinningCoefficientTracker;
-    ticTacToeTable[row][col] = whichPlayerCoefficient;
+    that.ticTacToeTable[row][col] = whichPlayerCoefficient;
     vue.showLetterOnBoard(row,col,that.playerLetterChoice);
     caseNonVide++;
     checkGameState();
@@ -126,7 +117,7 @@ this.aiPlay=function() {
   }
 
   function checkGameState(){
-    console.log("TIC TAC TOE MATRIX: "+ticTacToeTable);
+    console.log("TIC TAC TOE MATRIX: "+that.ticTacToeTable);
     var sumLeftDiagonal="";
     var sumRightDiagonal="";
     var sumLeftVertical="";
@@ -143,36 +134,36 @@ this.aiPlay=function() {
       {
         if ((i === 0 && j === 2) || (i === 1 && j === 1) || (i === 2 && j === 0))
         {
-          sumRightDiagonal+=ticTacToeTable[i][j]
+          sumRightDiagonal+=that.ticTacToeTable[i][j]
         }
         if(i===j)
         {
-          sumLeftDiagonal+=ticTacToeTable[i][j];
+          sumLeftDiagonal+=that.ticTacToeTable[i][j];
         }
 
         switch(i)
         {
           case 0:
-          sumTopHorizontal+=ticTacToeTable[i][j];
+          sumTopHorizontal+=that.ticTacToeTable[i][j];
           break;
           case 1:
-          sumCenterHorizontal+=ticTacToeTable[i][j];
+          sumCenterHorizontal+=that.ticTacToeTable[i][j];
           break;
           case 2:
-          sumBottomHorizontal+=ticTacToeTable[i][j];
+          sumBottomHorizontal+=that.ticTacToeTable[i][j];
           break;
         }
 
         switch(j)
         {
           case 0:
-          sumLeftVertical+=ticTacToeTable[i][j];
+          sumLeftVertical+=that.ticTacToeTable[i][j];
           break;
           case 1:
-          sumCenterVertical+=ticTacToeTable[i][j];
+          sumCenterVertical+=that.ticTacToeTable[i][j];
           break;
           case 2:
-          sumRightVertical+=ticTacToeTable[i][j];
+          sumRightVertical+=that.ticTacToeTable[i][j];
           break;
         }
       }
@@ -226,7 +217,7 @@ this.aiPlay=function() {
     middleHorizontal="";
     player1WinningCoefficientTracker="1";
     player2WinningCoefficientTracker="2";
-    ticTacToeTable=[
+    that.ticTacToeTable=[
       [0,0,0],
       [0,0,0],
       [0,0,0]

@@ -28,7 +28,24 @@ backButton.click(function(){
   }});
 
 
-  tictactoeBoard.click(model.humanPlay);
+  tictactoeBoard.click(clickHandler);
+
+  function clickHandler(){
+    clickCoordinates = $(this).attr('id').replace(/row-(\d)-col-(\d)/, "$1$2"); // tranform id "row-1-col-2" to "12" for example
+    row = clickCoordinates[0];
+    col = clickCoordinates[1];
+    if(model.playWithAI)
+    {
+      if(!model.humanHasPlayed)
+      {
+        if(model.ticTacToeTable[row][col]===0)
+        {
+          model.humanPlay(row,col)
+        }
+      }
+    }
+
+  }
 
 
 menuButton.click(function(){
