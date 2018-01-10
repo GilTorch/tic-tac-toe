@@ -1,17 +1,13 @@
 var Model=function(vue){
   var vue=vue;
   var that=this;
-  var player1WinningCoefficientTracker="1";
-  var player2WinningCoefficientTracker="2";
-  var player1WinningCoefficient="111";
-  var player2WinningCoefficient="222";
   this.playWithAI=false;
-  var player1Name="NO NAME";
-  var player2Name="AI";
-  this.playerName=player1Name;
-  var player1LetterChoice="X";
-  var player2LetterChoice="O";
-  this.playerLetterChoice=player1LetterChoice;
+  var players={
+    "1":{name:"PLAYER 1",winningCoefficient:"111",winningCoefficientTracker:"1",letter:"X"},
+    "2":{name:"PLAYER 2",winningCoefficient:"222",winningCoefficientTracker:"2",letter:"O"}
+  };
+  this.playerName=players[1].name;
+  this.playerLetterChoice=players[1].letter;
   var aiPlaysFirst=true;
   that.humanHasPlayed=true;
   that.ticTacToeTable=[
@@ -40,29 +36,47 @@ var Model=function(vue){
       break;
       case "SUBMIT":
       if(!that.playWithAI){
-        player2Name=$("#player2Name").val();
-        player2Name=(player2Name==="")?"NO NAME":player2Name;
+        var player2Name=vue.getPlayerName("player2");
+        if(player2Name==="")
+        {
+          player2Name="PLAYER 2";
+        }
+        players[2].name=player2Name;
       }else{
-        player2Name="AI";
+        players[2].name="AI";
       }
-      player1Name=$("#player1Name").val();
-      player1Name=(player1Name==="")?"NO NAME":player1Name;
-      vue.displayPlayerNames(player1Name,player2Name);
+      var player1Name=vue.getPlayerName("player1");
+      if(player1Name==="")
+      {
+        player1Name="PLAYER 1";
+      }
+      players[1].name=player1Name;
+      vue.displayPlayerNames(players[1].name,players[1].name);
       break;
       case "X":
       case "O":
-      player1LetterChoice=str;
-      player2LetterChoice=(player1LetterChoice==="X")?"O":"X";
-      this.playerName=player1Name;
-      this.playerLetterChoice=player1LetterChoice;
+      players[1].letter=str;
+      players[2].letter=(players[1].letter==="X")?"O":"X";
+      this.playerName=players[1].name;
+      this.playerLetterChoice=players[1].letter;
       // console.log("player1LetterChoice: "+player1LetterChoice+"\n"+"player2LetterChoice: "+player2LetterChoice);
       break;
     }
   }
 
+  function changePlayerNameByLetterChoice(){
+    for(var elements in players)
+    {
+      if(players[elements].letter===that.playerLetterChoice)
+      {
+        that.playerName=players[elements].name;
+      }
+    }
+  }
+
   this.changePlayer=function(){
-    this.playerLetterChoice = (this.playerLetterChoice === player1LetterChoice) ? player2LetterChoice : player1LetterChoice;
-    this.playerName = (this.playerName === player1Name) ? player2Name : player1Name;
+    this.playerLetterChoice = (this.playerLetterChoice === players[1].letter)?players[2].letter:players[1].letter;
+    changePlayerNameByLetterChoice();
   }
 
   this.createTicTacToeGame=function(){
@@ -75,7 +89,7 @@ var Model=function(vue){
     }
   }
 
-this.aiPlay=function() {
+  this.aiPlay=function() {
     that.humanHasPlayed=false;
     var casesVides = [];
     var random = 0;    /**Choisir une case vide aleatoire**/
@@ -90,9 +104,7 @@ this.aiPlay=function() {
     var caseAleatoire=casesVides[random];
     var choiceRow=caseAleatoire[0];
     var choiceCol=caseAleatoire[1];
-
     that.updateTicTacToeGame(choiceRow, choiceCol);
-    // alert(caseNonVide);
   }
 
   this.humanPlay=function(row,col){
@@ -101,13 +113,13 @@ this.aiPlay=function() {
     {
       that.humanHasPlayed=true;
       setTimeout(function(){
-      that.aiPlay();
+        that.aiPlay();
       },1000);
     }
   }
 
   this.updateTicTacToeGame=function(row,col){
-    var whichPlayerCoefficient = (this.playerLetterChoice === player2LetterChoice) ? player2WinningCoefficientTracker : player1WinningCoefficientTracker;
+    var whichPlayerCoefficient = (this.playerLetterChoice === players[2].letter) ? players[2].winningCoefficientTracker : players[1].winningCoefficientTracker;
     that.ticTacToeTable[row][col] = whichPlayerCoefficient;
     vue.showLetterOnBoard(row,col,that.playerLetterChoice);
     caseNonVide++;
@@ -183,14 +195,13 @@ this.aiPlay=function() {
     }
     for (var i=0;i<directions.length;i++)
     {
-
-      if(directions[i]===player1WinningCoefficient)
+      if(directions[i]===players[1].winningCoefficient)
       {
-        result=player1Name+ " Won!";
+        result=players[1].name+ " Won!";
       }
-      else if(directions[i]===player2WinningCoefficient)
+      else if(directions[i]===players[2].winningCoefficient)
       {
-        result=player2Name+ " Won!";
+        result=players[2].name+ " Won!";
       }
     }
 
@@ -215,8 +226,6 @@ this.aiPlay=function() {
     topHorizontal="";
     bottomHorizontal="";
     middleHorizontal="";
-    player1WinningCoefficientTracker="1";
-    player2WinningCoefficientTracker="2";
     that.ticTacToeTable=[
       [0,0,0],
       [0,0,0],

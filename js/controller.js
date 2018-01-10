@@ -44,7 +44,12 @@ backButton.click(function(){
         }
       }
     }
-
+    else{
+      if(model.ticTacToeTable[row][col]===0)
+      {
+        model.humanPlay(row,col)
+      }
+    }
   }
 
 

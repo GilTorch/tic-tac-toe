@@ -110,30 +110,26 @@ input{
   background-color: rgba(255,255,255,0.3);
 }
 
+.game-results-box p{
+  font-size:2em;
+  font-weight:bold
+  color:white;
+}
+
 .button-group{
   margin-top:4%;
 }
 
-#player1{
-  color:blue;
-}
-
-#player2{
-  color:green;
-}
-
 .versus{
-  font-size: 3em;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffd800+0,ff0000+100 */
-color: #ffd800; /* Old browsers */
-color: -moz-radial-gradient(center, ellipse cover, #ffd800 0%, #ff0000 100%); /* FF3.6-15 */
-color: -webkit-radial-gradient(center, ellipse cover, #ffd800 0%,#ff0000 100%); /* Chrome10-25,Safari5.1-6 */
-color: radial-gradient(ellipse at center, #ffd800 0%,#ff0000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd800', endColorstr='#ff0000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  font-size: 6em;
   font-family: 'Lobster', cursive;
+  color:red;
 }
 
 .playersName{
-  font-size: 1.5em;
-  font-family: 'Lobster Two', cursive
+  font-size: 3em;
+  font-family: 'Helvetica', cursive
+  text-align:center;
+  color:yellow;
+  text-shadow: 0 0 10px;
 }

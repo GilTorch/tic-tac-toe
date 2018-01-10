@@ -9,6 +9,11 @@ var Vue=function(){
  ];
  this.currentScreenPosition=0;
 
+  this.getPlayerName=function(player)
+  {
+    return $("#"+player+"Name").val();
+  }
+
   this.showCurrentScreen=function(){
     var currentScreen=$("#"+this.navigation_map[this.currentScreenPosition]);
     currentScreen.show(800);
