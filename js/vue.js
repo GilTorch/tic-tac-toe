@@ -1,7 +1,7 @@
 var Vue=function(){
  var screenAnimationEffect="animated fadeInLeftBig";
  this.navigation_map=[
-   "main_heading",
+   "welcome-screen",
    "choose-player",
    "player-names",
    "letter-choice-box",
@@ -31,7 +31,8 @@ var Vue=function(){
   }
 
   this.showPlayerTurn=function(playerName){
-    $(".show-player-turn p").html(playerName+" just played!");
+    console.log(playerName);
+    $(".show-player-turn p").html(playerName+" turn!");
   }
 
   this.showResults=function(result){

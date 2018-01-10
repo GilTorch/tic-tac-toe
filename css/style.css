@@ -3,6 +3,7 @@ body{
   background: url("http://res.cloudinary.com/dejyp5iex/image/upload/v1508780855/Wood-Wallpaper-Background-9_dsdodm.jpg") no-repeat fixed center;
   background-color: hsl(180, 24%, 12%);
   text-align: center;
+  font-weight:bold
 }
 
 .dialog-box{
@@ -15,6 +16,14 @@ body{
   background-color:none;
   color:white;
   text-align: center;
+}
+
+.dialog-box h1{
+  font-size: 10em;
+}
+
+.dialog-box h3{
+  font-size: 6em;
 }
 
 h1{
@@ -98,7 +107,7 @@ input{
 #tic-tac-toe-ui td{
     width: 100px;
     height:100px;
-    border:3px solid white;
+    border:5px solid white;
     border:collapse;
     text-align: center;
     font-size: 3em;
@@ -110,7 +119,7 @@ input{
   background-color: rgba(255,255,255,0.3);
 }
 
-.game-results-box p{
+#players-box .game-results-box p{
   font-size:2em;
   font-weight:bold
   color:white;

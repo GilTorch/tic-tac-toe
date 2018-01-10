@@ -6,8 +6,7 @@ var Model=function(vue){
     "1":{name:"PLAYER 1",winningCoefficient:"111",winningCoefficientTracker:"1",letter:"X"},
     "2":{name:"PLAYER 2",winningCoefficient:"222",winningCoefficientTracker:"2",letter:"O"}
   };
-  this.playerName=players[1].name;
-  this.playerLetterChoice=players[1].letter;
+  this.currentPlayer=players[1];
   var aiPlaysFirst=true;
   that.humanHasPlayed=true;
   that.ticTacToeTable=[
@@ -51,32 +50,19 @@ var Model=function(vue){
         player1Name="PLAYER 1";
       }
       players[1].name=player1Name;
-      vue.displayPlayerNames(players[1].name,players[1].name);
+      vue.displayPlayerNames(players[1].name,players[2].name);
       break;
       case "X":
       case "O":
       players[1].letter=str;
       players[2].letter=(players[1].letter==="X")?"O":"X";
-      this.playerName=players[1].name;
-      this.playerLetterChoice=players[1].letter;
-      // console.log("player1LetterChoice: "+player1LetterChoice+"\n"+"player2LetterChoice: "+player2LetterChoice);
+          // console.log("player1LetterChoice: "+player1LetterChoice+"\n"+"player2LetterChoice: "+player2LetterChoice);
       break;
     }
   }
 
-  function changePlayerNameByLetterChoice(){
-    for(var elements in players)
-    {
-      if(players[elements].letter===that.playerLetterChoice)
-      {
-        that.playerName=players[elements].name;
-      }
-    }
-  }
-
   this.changePlayer=function(){
-    this.playerLetterChoice = (this.playerLetterChoice === players[1].letter)?players[2].letter:players[1].letter;
-    changePlayerNameByLetterChoice();
+    this.currentPlayer=(this.currentPlayer===players[1])?players[2]:players[1];
   }
 
   this.createTicTacToeGame=function(){
@@ -84,8 +70,13 @@ var Model=function(vue){
     if (that.playWithAI) {
       aiPlaysFirst = $(".ai-play-first input").prop("checked");
       if (aiPlaysFirst) {
+        this.currentPlayer=players[2];
         that.aiPlay();
       }
+    }
+    else{
+      vue.showPlayerTurn(players[1].name);
+      this.currentPlayer=players[1];
     }
   }
 
@@ -119,13 +110,13 @@ var Model=function(vue){
   }
 
   this.updateTicTacToeGame=function(row,col){
-    var whichPlayerCoefficient = (this.playerLetterChoice === players[2].letter) ? players[2].winningCoefficientTracker : players[1].winningCoefficientTracker;
+    var whichPlayerCoefficient=(this.currentPlayer.letter===players[2].letter)?players[2].winningCoefficientTracker:players[1].winningCoefficientTracker;
     that.ticTacToeTable[row][col] = whichPlayerCoefficient;
-    vue.showLetterOnBoard(row,col,that.playerLetterChoice);
+    vue.showLetterOnBoard(row,col,this.currentPlayer.letter);
     caseNonVide++;
     checkGameState();
     that.changePlayer();
-    vue.showPlayerTurn(that.playerName);
+    vue.showPlayerTurn(this.currentPlayer.name);
   }
 
   function checkGameState(){
@@ -182,37 +173,33 @@ var Model=function(vue){
     }
 
     var directions=[sumTopHorizontal,sumCenterHorizontal,sumBottomHorizontal,sumLeftVertical,sumCenterVertical,sumRightVertical,sumLeftDiagonal,sumRightDiagonal];
-
-    gameResults(directions);
-
-
-  }
-
-  function gameResults(directions){
-    var result="";
-    if(caseNonVide===9){
-      result="DRAW!!";
-    }
-    for (var i=0;i<directions.length;i++)
+    if(gameResults(directions)!=="")
     {
-      if(directions[i]===players[1].winningCoefficient)
-      {
-        result=players[1].name+ " Won!";
-      }
-      else if(directions[i]===players[2].winningCoefficient)
-      {
-        result=players[2].name+ " Won!";
-      }
-    }
-
-    if(result!=="")
-    {
-      vue.showResults(result);
+      vue.showResults(gameResults(directions));
       setTimeout(function(){
         initValues();
         that.createTicTacToeGame();
       },2000);
     }
+}
+
+  function gameResults(directions){
+    var resultat="";
+    if(caseNonVide===9){
+      resultat="DRAW!!";
+    }
+    for (var i=0;i<directions.length;i++)
+    {
+      if(directions[i]===players[1].winningCoefficient)
+      {
+        resultat=players[1].name+ " Won!";
+      }
+      else if(directions[i]===players[2].winningCoefficient)
+      {
+        resultat=players[2].name+ " Won!";
+      }
+    }
+    return resultat;
   }
 
 
