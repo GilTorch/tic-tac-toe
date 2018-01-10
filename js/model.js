@@ -9,6 +9,7 @@ var Model=function(vue){
   this.currentPlayer=players[1];
   var aiPlaysFirst=true;
   that.humanHasPlayed=true;
+  this.gameIsOver=false;
   that.ticTacToeTable=[
     [0,0,0],
     [0,0,0],
@@ -104,7 +105,8 @@ var Model=function(vue){
     {
       that.humanHasPlayed=true;
       setTimeout(function(){
-        that.aiPlay();
+        if(!that.gameIsOver)
+          that.aiPlay();
       },1000);
     }
   }
@@ -175,6 +177,7 @@ var Model=function(vue){
     var directions=[sumTopHorizontal,sumCenterHorizontal,sumBottomHorizontal,sumLeftVertical,sumCenterVertical,sumRightVertical,sumLeftDiagonal,sumRightDiagonal];
     if(gameResults(directions)!=="")
     {
+      that.gameIsOver=true;
       vue.showResults(gameResults(directions));
       setTimeout(function(){
         initValues();
@@ -213,6 +216,7 @@ var Model=function(vue){
     topHorizontal="";
     bottomHorizontal="";
     middleHorizontal="";
+    that.gameIsOver=false;
     that.ticTacToeTable=[
       [0,0,0],
       [0,0,0],

@@ -34,21 +34,25 @@ backButton.click(function(){
     clickCoordinates = $(this).attr('id').replace(/row-(\d)-col-(\d)/, "$1$2"); // tranform id "row-1-col-2" to "12" for example
     row = clickCoordinates[0];
     col = clickCoordinates[1];
-    if(model.playWithAI)
+    if(!model.gameIsOver)
     {
-      if(!model.humanHasPlayed)
+      if(model.playWithAI)
       {
+        if(!model.humanHasPlayed)
+        {
+          if(model.ticTacToeTable[row][col]===0)
+          {
+            model.humanPlay(row,col)
+          }
+        }
+      }
+      else{
         if(model.ticTacToeTable[row][col]===0)
         {
           model.humanPlay(row,col)
         }
       }
-    }
-    else{
-      if(model.ticTacToeTable[row][col]===0)
-      {
-        model.humanPlay(row,col)
-      }
+
     }
   }
 

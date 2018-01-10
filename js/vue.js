@@ -27,7 +27,21 @@ var Vue=function(){
   this.showLetterOnBoard=function(row,col,letter){
     var ticTacToeBoard=$("#"+"row-"+row+"-col-"+col);
      if(ticTacToeBoard.html()==="")
+     {
+       if(letter==="X")
+       {
+         if(ticTacToeBoard.hasClass("o-letter"))
+           ticTacToeBoard.removeClass("o-letter");
+         ticTacToeBoard.addClass("x-letter");
+       }
+       else {
+         if(ticTacToeBoard.hasClass("x-letter"))
+           ticTacToeBoard.removeClass("x-letter");
+         ticTacToeBoard.addClass("o-letter");
+       }
        ticTacToeBoard.html(letter);
+
+     }
   }
 
   this.showPlayerTurn=function(playerName){

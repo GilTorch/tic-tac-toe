@@ -64,6 +64,21 @@ h3{
   color:#00FF00;
 }
 
+.x-letter{
+  /* background-color:#00FF00; */
+  color:#00FF00 !important;
+}
+
+.o-letter{
+  /* background-color:#0000FF; */
+  color:#0000FF !important;
+}
+
+.winner{
+  background:red !important;
+  color:white !important;
+}
+
 #choose-player span{
   padding:1%;
   font-size: 2em;
