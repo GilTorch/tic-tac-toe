@@ -119,11 +119,18 @@ input{
   background-color: rgba(255,255,255,0.3);
 }
 
-#players-box .game-results-box p{
-  font-size:2em;
-  font-weight:bold
+.game-results-box p{
+  font-size:3em;
+  background-color: #222222;
+  color:green;
+}
+
+.show-player-turn p{
+  font-size: 2em;
+  font-family: "Helvetica";
   color:white;
 }
+
 
 .button-group{
   margin-top:4%;
@@ -135,9 +142,11 @@ input{
   color:red;
 }
 
+.player1vsplayer2-box{
+  background-color:black;
+}
 .playersName{
   font-size: 3em;
-  font-family: 'Helvetica', cursive
   text-align:center;
   color:yellow;
   text-shadow: 0 0 10px;
