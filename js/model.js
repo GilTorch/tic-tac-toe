@@ -3,8 +3,8 @@ var Model=function(vue){
   var that=this;
   this.playWithAI=false;
   var players={
-    "1":{name:"PLAYER 1",winningCoefficient:"111",winningCoefficientTracker:"1",letter:"X"},
-    "2":{name:"PLAYER 2",winningCoefficient:"222",winningCoefficientTracker:"2",letter:"O"}
+    "1":{name:"Player 1",winningCoefficient:"111",winningCoefficientTracker:"1",letter:"X"},
+    "2":{name:"Player 2",winningCoefficient:"222",winningCoefficientTracker:"2",letter:"O"}
   };
   this.currentPlayer=players[1];
   var aiPlaysFirst=true;
@@ -39,16 +39,16 @@ var Model=function(vue){
         var player2Name=vue.getPlayerName("player2");
         if(player2Name==="")
         {
-          player2Name="PLAYER 2";
+          player2Name="Player 2";
         }
         players[2].name=player2Name;
       }else{
-        players[2].name="AI";
+        players[2].name="Computer";
       }
       var player1Name=vue.getPlayerName("player1");
       if(player1Name==="")
       {
-        player1Name="PLAYER 1";
+        player1Name="Player 1";
       }
       players[1].name=player1Name;
       vue.displayPlayerNames(players[1].name,players[2].name);
