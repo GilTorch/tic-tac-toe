@@ -157,6 +157,11 @@ input{
   color:red;
 }
 
+.winner{
+  background-color:red;
+  color:white;
+}
+
 .player1vsplayer2-box{
   background-color:#555555;
 }

@@ -53,6 +53,89 @@ var Vue=function(){
     $(".game-results-box p").html(result);
   }
 
+  this.hightLightTheWinner=function(direction){
+      for(var i=0;i<3;i++)
+      {
+        for(var j=0;j<3;j++)
+        {
+          if ((i === 0 && j === 2) || (i === 1 && j === 1) || (i === 2 && j === 0))
+          {
+            if(direction==="Right Diagonal")
+            {
+              addWinnerClass(i,j);
+            }
+          }
+          if(i===j)
+          {
+            if(direction==="Left Diagonal")
+            {
+              addWinnerClass(i,j);
+            }
+          }
+
+          switch(i)
+          {
+            case 0:
+            if(direction==="Top Horizontal")
+            {
+              addWinnerClass(i,j);
+            }
+            break;
+            case 1:
+            if(direction==="Center Horizontal")
+            {
+              addWinnerClass(i,j);
+            }
+            break;
+            case 2:
+            if(direction==="Bottom Horizontal")
+            {
+              addWinnerClass(i,j);
+            }
+            break;
+          }
+
+          switch(j)
+          {
+            case 0:
+            if(direction==="Left Vertical")
+            {
+              addWinnerClass(i,j);
+            }
+            break;
+            case 1:
+            if(direction==="Center Vertical")
+            {
+              addWinnerClass(i,j);
+            }
+            break;
+            case 2:
+            if(direction==="Right Vertical")
+            {
+              addWinnerClass(i,j);
+            }
+            break;
+          }
+        }
+      }
+}
+
+function addWinnerClass(i,j){
+  var cell=$("#"+"row-"+i+"-col-"+j);
+  cell.addClass("winner");
+}
+
+  this.removeWinnerClass=function(){
+    for(var row=0;row<3;row++)
+    {
+      for(var col=0;col<3;col++)
+      {
+        var cell=$("#"+"row-"+row+"-col-"+col);
+        cell.removeClass("winner");
+      }
+    }
+  }
+
   this.clearTicTacToeBoard=function(){
     $("#tic-tac-toe-ui td").html("");
   }

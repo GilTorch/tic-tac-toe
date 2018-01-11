@@ -123,15 +123,18 @@ var Model=function(vue){
 
   function checkGameState(){
     console.log("TIC TAC TOE MATRIX: "+that.ticTacToeTable);
-    var sumLeftDiagonal="";
-    var sumRightDiagonal="";
-    var sumLeftVertical="";
-    var sumLeftVertical="";
-    var sumCenterVertical="";
-    var sumRightVertical="";
-    var sumTopHorizontal="";
-    var sumCenterHorizontal="";
-    var sumBottomHorizontal="";
+
+    var directions=[
+      {name:"Left Diagonal",value:""},
+      {name:"Right Diagonal",value:""},
+      {name:"Left Vertical",value:""},
+      {name:"Center Vertical",value:""},
+      {name:"Right Vertical",value:""},
+      {name:"Top Horizontal",value:""},
+      {name:"Center Horizontal",value:""},
+      {name:"Bottom Horizontal",value:""}]
+
+
     var result="";
     for(var i=0;i<3;i++)
     {
@@ -139,42 +142,41 @@ var Model=function(vue){
       {
         if ((i === 0 && j === 2) || (i === 1 && j === 1) || (i === 2 && j === 0))
         {
-          sumRightDiagonal+=that.ticTacToeTable[i][j]
+          directions[1].value+=that.ticTacToeTable[i][j]
         }
         if(i===j)
         {
-          sumLeftDiagonal+=that.ticTacToeTable[i][j];
+          directions[0].value+=that.ticTacToeTable[i][j];
         }
 
         switch(i)
         {
           case 0:
-          sumTopHorizontal+=that.ticTacToeTable[i][j];
+          directions[5].value+=that.ticTacToeTable[i][j];
           break;
           case 1:
-          sumCenterHorizontal+=that.ticTacToeTable[i][j];
+          directions[6].value+=that.ticTacToeTable[i][j];
           break;
           case 2:
-          sumBottomHorizontal+=that.ticTacToeTable[i][j];
+          directions[7].value+=that.ticTacToeTable[i][j];
           break;
         }
 
         switch(j)
         {
           case 0:
-          sumLeftVertical+=that.ticTacToeTable[i][j];
+          directions[2].value+=that.ticTacToeTable[i][j];
           break;
           case 1:
-          sumCenterVertical+=that.ticTacToeTable[i][j];
+          directions[3].value+=that.ticTacToeTable[i][j];
           break;
           case 2:
-          sumRightVertical+=that.ticTacToeTable[i][j];
+          directions[4].value+=that.ticTacToeTable[i][j];
           break;
         }
       }
     }
 
-    var directions=[sumTopHorizontal,sumCenterHorizontal,sumBottomHorizontal,sumLeftVertical,sumCenterVertical,sumRightVertical,sumLeftDiagonal,sumRightDiagonal];
     if(gameResults(directions)!=="")
     {
       that.gameIsOver=true;
@@ -193,12 +195,14 @@ var Model=function(vue){
     }
     for (var i=0;i<directions.length;i++)
     {
-      if(directions[i]===players[1].winningCoefficient)
+      if(directions[i].value===players[1].winningCoefficient)
       {
+        vue.hightLightTheWinner(directions[i].name);
         resultat=players[1].name+ " Won!";
       }
-      else if(directions[i]===players[2].winningCoefficient)
+      else if(directions[i].value===players[2].winningCoefficient)
       {
+        vue.hightLightTheWinner(directions[i].name);
         resultat=players[2].name+ " Won!";
       }
     }
@@ -222,6 +226,7 @@ var Model=function(vue){
       [0,0,0],
       [0,0,0]
     ];
+    vue.removeWinnerClass();
     vue.clearPlayerTurn();
     vue.clearTicTacToeBoard();
     vue.clearResults();
