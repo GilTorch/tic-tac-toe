@@ -163,8 +163,8 @@ function addWinnerClass(i,j){
   }
 
   this.clearPlayersScore=function(){
-    $(".player1-score").html("0");
-    $(".player2-score").html("0");
+    $("#player1-score").html("0");
+    $("#player2-score").html("0");
   }
 
   this.displayPlayerNames=function(name1,name2){

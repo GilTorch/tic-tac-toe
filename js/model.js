@@ -121,6 +121,11 @@ var Model=function(vue){
     vue.showPlayerTurn(this.currentPlayer.name);
   }
 
+this.clearScore=function(){
+  players[1].score=0;
+  players[2].score=0;
+}
+
   function checkGameState(){
     console.log("TIC TAC TOE MATRIX: "+that.ticTacToeTable);
 

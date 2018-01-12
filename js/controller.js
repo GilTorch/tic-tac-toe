@@ -25,6 +25,8 @@ backButton.click(function(){
     vue.hidePreviousScreen(vue.currentScreenPosition);
     vue.currentScreenPosition--;
     vue.showCurrentScreen(vue.currentScreenPosition);
+    vue.clearPlayersScore();
+    model.clearScore();
   }});
 
 
@@ -62,7 +64,7 @@ menuButton.click(function(){
   vue.currentScreenPosition=0;
   vue.showCurrentScreen(vue.currentScreenPosition);
   vue.clearPlayersScore();
-  model.initValues();
+  model.clearScore();
 });
 
 
