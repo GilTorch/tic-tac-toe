@@ -158,8 +158,8 @@ function addWinnerClass(i,j){
   }
 
   this.updatePlayersScore=function(players){
-    $(".player1-score").html(players[1].score);
-    $(".player2-score").html(players[2].score);
+    $("#player1-score").html(players[1].score);
+    $("#player2-score").html(players[2].score);
   }
 
   this.clearPlayersScore=function(){

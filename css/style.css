@@ -133,6 +133,10 @@ input{
   background-color:#BBBBBB;
 }
 
+#player1-score,#player2-score{
+  color:white;
+}
+
 .game-results-box p{
   font-family:"Lobster Two";
   font-size:2em;
@@ -175,9 +179,14 @@ input{
   color:yellow;
 }
 .players-score:{
-  color:red;
+  color:red !important;
 }
 
 .skull{
   width:5%;
+}
+
+
+.playerNames-input{
+  color:#AA0000;
 }

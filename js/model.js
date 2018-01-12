@@ -177,10 +177,12 @@ var Model=function(vue){
       }
     }
 
-    if(gameResults(directions)!=="")
+    var gameResult=gameResults(directions);
+
+    if(gameResult!=="")
     {
       that.gameIsOver=true;
-      vue.showResults(gameResults(directions));
+      vue.showResults(gameResult);
       setTimeout(function(){
         that.initValues();
         that.createTicTacToeGame();
@@ -195,8 +197,10 @@ var Model=function(vue){
     }
     for (var i=0;i<directions.length;i++)
     {
+      console.log("Game results is executed: "+i+" times!");
       if(directions[i].value===players[1].winningCoefficient)
       {
+        console.log("condition inside game resulted is executed now");
         players[1].score++;
         vue.updatePlayersScore(players);
         vue.hightLightTheWinner(directions[i].name);
