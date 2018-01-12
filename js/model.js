@@ -3,8 +3,8 @@ var Model=function(vue){
   var that=this;
   this.playWithAI=false;
   var players={
-    "1":{name:"Player 1",winningCoefficient:"111",winningCoefficientTracker:"1",letter:"X"},
-    "2":{name:"Player 2",winningCoefficient:"222",winningCoefficientTracker:"2",letter:"O"}
+    "1":{name:"Player 1",winningCoefficient:"111",winningCoefficientTracker:"1",letter:"X",score:0},
+    "2":{name:"Player 2",winningCoefficient:"222",winningCoefficientTracker:"2",letter:"O",score:0}
   };
   this.currentPlayer=players[1];
   var aiPlaysFirst=true;
@@ -67,7 +67,7 @@ var Model=function(vue){
   }
 
   this.createTicTacToeGame=function(){
-    initValues();
+    this.initValues();
     if (that.playWithAI) {
       aiPlaysFirst = $(".ai-play-first input").prop("checked");
       if (aiPlaysFirst) {
@@ -132,7 +132,7 @@ var Model=function(vue){
       {name:"Right Vertical",value:""},
       {name:"Top Horizontal",value:""},
       {name:"Center Horizontal",value:""},
-      {name:"Bottom Horizontal",value:""}]
+      {name:"Bottom Horizontal",value:""}];
 
 
     var result="";
@@ -182,7 +182,7 @@ var Model=function(vue){
       that.gameIsOver=true;
       vue.showResults(gameResults(directions));
       setTimeout(function(){
-        initValues();
+        that.initValues();
         that.createTicTacToeGame();
       },2000);
     }
@@ -197,11 +197,15 @@ var Model=function(vue){
     {
       if(directions[i].value===players[1].winningCoefficient)
       {
+        players[1].score++;
+        vue.updatePlayersScore(players);
         vue.hightLightTheWinner(directions[i].name);
         resultat=players[1].name+ " Won!";
       }
       else if(directions[i].value===players[2].winningCoefficient)
       {
+        players[2].score++;
+        vue.updatePlayersScore(players);
         vue.hightLightTheWinner(directions[i].name);
         resultat=players[2].name+ " Won!";
       }
@@ -210,7 +214,7 @@ var Model=function(vue){
   }
 
 
-  function initValues(){
+  this.initValues=function(){
     caseNonVide=0;
     leftDiagonal="";
     rightDiagonal="";

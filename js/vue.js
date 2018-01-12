@@ -2,7 +2,7 @@ var Vue=function(){
  var screenAnimationEffect="animated fadeInLeftBig";
  this.navigation_map=[
    "welcome-screen",
-   "choose-player",
+   "choose-opponent",
    "player-names",
    "letter-choice-box",
    "tic-tac-toe-container"
@@ -157,9 +157,19 @@ function addWinnerClass(i,j){
     $(".ai-play-first").hide();
   }
 
+  this.updatePlayersScore=function(players){
+    $(".player1-score").html(players[1].score);
+    $(".player2-score").html(players[2].score);
+  }
+
+  this.clearPlayersScore=function(){
+    $(".player1-score").html("0");
+    $(".player2-score").html("0");
+  }
+
   this.displayPlayerNames=function(name1,name2){
-    $("#player1").html(name1);
-    $("#player2").html(name2);
+    $("#player1").html(name1+":");
+    $("#player2").html(name2+":");
   }
 
   this.showPlayer2InputField=function(){

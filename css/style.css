@@ -77,12 +77,12 @@ h3{
   color:white !important;
 }
 
-#choose-player span{
+#choose-opponent span{
   padding:1%;
   font-size: 2em;
 }
 
-#choose-player span:hover{
+#choose-opponent span:hover{
   cursor: pointer;
   /*background-color:lightblue;*/
   border:1px solid red;
@@ -165,9 +165,19 @@ input{
 .player1vsplayer2-box{
   background-color:#555555;
 }
-.playersName{
+.playersName,.players-score{
   font-size: 3em;
   text-align:center;
-  color:yellow;
   text-shadow: 0 0 10px;
+}
+
+.playersName{
+  color:yellow;
+}
+.players-score:{
+  color:red;
+}
+
+.skull{
+  width:5%;
 }

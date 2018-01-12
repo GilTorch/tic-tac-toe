@@ -61,6 +61,8 @@ menuButton.click(function(){
   vue.hidePreviousScreen(vue.currentScreenPosition);
   vue.currentScreenPosition=0;
   vue.showCurrentScreen(vue.currentScreenPosition);
+  vue.clearPlayersScore();
+  model.initValues();
 });
 
 
